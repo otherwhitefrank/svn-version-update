@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DATE_TIME=$(date +%Y%m%d_%H%M%S)
+
+
+svn mkdir -m "Making a new tag dir - $DATE_TIME" http://sfsuswe.com/svn/f14g10/tag/$DATE_TIME
+
+echo "Made new tag directory $DATE_TIME"
+
+echo "Copying previous trunk into tag/$DATE_TIME"
+
+svn mv -m "Moving /trunk to tag/$DATE_TIME/" http://sfsuswe.com/svn/f14g10/trunk http://sfsuswe.com/svn/f14g10/tag/$DATE_TIME/.
+
+echo "Make sure to wipe old /trunk" 
+
+svn delete -m "Erasing old /trunk/" http://sfsuswe.com/svn/f14g10/trunk
+
+echo "Copying 'branch' into /trunk to make new stable version"
+
+svn cp -m "Making a copy of 'branch' into /trunk so it becomes the new stable version" http://sfsuswe.com/svn/f14g10/branch http://sfsuswe.com/svn/f14g10/trunk
